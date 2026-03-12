@@ -6,31 +6,27 @@ import ideaSwim from "@/assets/idea-swim.jpg";
 const ideas = [
   {
     id: 1,
-    number: "Ide 27",
-    text: "Tenggelam dalam buku favoritmu berjam-jam.",
+    number: "Idea 27",
+    text: "Lose yourself in your favourite book for hours.",
     image: ideaReading,
   },
   {
     id: 2,
-    number: "Ide 53",
-    text: "Berjalan santai menyusuri alam tropis.",
+    number: "Idea 53",
+    text: "Take a leisurely walk through tropical nature.",
     image: ideaWalk,
   },
   {
     id: 3,
-    number: "Ide 12",
-    text: "Berenang di kolam alami dengan pemandangan pegunungan.",
+    number: "Idea 12",
+    text: "Swim in a natural pool with mountain views.",
     image: ideaSwim,
   },
 ];
 
 const container = {
   hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.05,
-    },
-  },
+  show: { transition: { staggerChildren: 0.05 } },
 };
 
 const item = {
