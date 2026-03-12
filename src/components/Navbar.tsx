@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+
+  const isActive = (path: string) => location.pathname === path;
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md">
@@ -14,23 +17,23 @@ const Navbar = () => {
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-8">
-          <Link to="/cabins" className="font-satoshi font-medium text-sm tracking-wider text-foreground/80 hover:text-foreground transition-colors duration-200">
+          <Link to="/cabins" className={`font-satoshi font-medium text-sm tracking-wider transition-colors duration-200 ${isActive('/cabins') ? 'text-foreground' : 'text-foreground/80 hover:text-foreground'}`}>
             Cabins
           </Link>
-          <Link to="/lokasi" className="font-satoshi font-medium text-sm tracking-wider text-foreground/80 hover:text-foreground transition-colors duration-200">
-            Lokasi
+          <Link to="/locations" className={`font-satoshi font-medium text-sm tracking-wider transition-colors duration-200 ${isActive('/locations') ? 'text-foreground' : 'text-foreground/80 hover:text-foreground'}`}>
+            Locations
           </Link>
-          <Link to="/pengalaman" className="font-satoshi font-medium text-sm tracking-wider text-foreground/80 hover:text-foreground transition-colors duration-200">
-            Pengalaman
+          <Link to="/experiences" className={`font-satoshi font-medium text-sm tracking-wider transition-colors duration-200 ${isActive('/experiences') ? 'text-foreground' : 'text-foreground/80 hover:text-foreground'}`}>
+            Experiences
           </Link>
-          <Link to="/journal" className="font-satoshi font-medium text-sm tracking-wider text-foreground/80 hover:text-foreground transition-colors duration-200">
+          <Link to="/journal" className={`font-satoshi font-medium text-sm tracking-wider transition-colors duration-200 ${isActive('/journal') ? 'text-foreground' : 'text-foreground/80 hover:text-foreground'}`}>
             Journal
           </Link>
           <Link
-            to="/cari"
+            to="/cabins"
             className="font-satoshi font-medium text-sm tracking-wider bg-primary text-primary-foreground h-10 px-5 rounded-full inline-flex items-center hover:brightness-95 active:scale-[0.98] transition-all duration-200"
           >
-            Pesan Sekarang
+            Book Now
           </Link>
         </div>
 
@@ -48,15 +51,15 @@ const Navbar = () => {
       {mobileOpen && (
         <div className="md:hidden bg-background px-4 pb-6 pt-2 space-y-4">
           <Link to="/cabins" className="block font-satoshi font-medium text-foreground/80" onClick={() => setMobileOpen(false)}>Cabins</Link>
-          <Link to="/lokasi" className="block font-satoshi font-medium text-foreground/80" onClick={() => setMobileOpen(false)}>Lokasi</Link>
-          <Link to="/pengalaman" className="block font-satoshi font-medium text-foreground/80" onClick={() => setMobileOpen(false)}>Pengalaman</Link>
+          <Link to="/locations" className="block font-satoshi font-medium text-foreground/80" onClick={() => setMobileOpen(false)}>Locations</Link>
+          <Link to="/experiences" className="block font-satoshi font-medium text-foreground/80" onClick={() => setMobileOpen(false)}>Experiences</Link>
           <Link to="/journal" className="block font-satoshi font-medium text-foreground/80" onClick={() => setMobileOpen(false)}>Journal</Link>
           <Link
-            to="/cari"
+            to="/cabins"
             className="block font-satoshi font-medium bg-primary text-primary-foreground h-11 px-6 rounded-full inline-flex items-center"
             onClick={() => setMobileOpen(false)}
           >
-            Pesan Sekarang
+            Book Now
           </Link>
         </div>
       )}

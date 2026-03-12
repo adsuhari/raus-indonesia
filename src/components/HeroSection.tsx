@@ -12,11 +12,11 @@ const HeroSection = () => {
           className="font-satoshi font-bold text-primary leading-[1.1]"
           style={{ fontSize: "clamp(2.5rem, 5vw + 1rem, 4rem)" }}
         >
-          Temukan tempat
+          Find your place
           <br />
-          peristirahatanmu
+          of rest in
           <br />
-          di alam Indonesia.
+          Indonesia's nature.
         </motion.h1>
 
         <motion.div
@@ -28,7 +28,7 @@ const HeroSection = () => {
           <div className="w-full max-w-3xl mx-auto">
             <img
               src={heroCabin}
-              alt="Cabin modern di tengah hutan tropis Indonesia"
+              alt="Modern cabin in Indonesia's tropical forest"
               className="w-full h-auto rounded-2xl image-outline object-cover"
             />
           </div>

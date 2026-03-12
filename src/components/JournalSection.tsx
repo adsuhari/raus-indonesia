@@ -7,20 +7,20 @@ import journal3 from "@/assets/journal-3.jpg";
 const articles = [
   {
     id: 1,
-    category: "Pengalaman",
-    title: "Rina bercerita: Menginap di cabin desain di Ubud",
+    category: "Experience",
+    title: "Rina's story: A design cabin stay in Ubud",
     image: journal1,
   },
   {
     id: 2,
-    category: "Pengalaman",
-    title: "Dani bercerita: Liburan berdua di tepi laut Lombok",
+    category: "Experience",
+    title: "Dani's story: A couple's retreat by the sea in Lombok",
     image: journal2,
   },
   {
     id: 3,
-    category: "Pengalaman",
-    title: "Maya bercerita: Retreat yoga di tengah hutan",
+    category: "Experience",
+    title: "Maya's story: A yoga retreat in the jungle",
     image: journal3,
   },
 ];
@@ -46,7 +46,7 @@ const JournalSection = () => {
           transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
           className="font-satoshi font-bold text-2xl sm:text-3xl text-foreground"
         >
-          Journal Kami
+          Our Journal
         </motion.h2>
 
         <motion.div
@@ -58,7 +58,7 @@ const JournalSection = () => {
         >
           {articles.map((article) => (
             <motion.div key={article.id} variants={item}>
-              <Link to="/journal" className="group block">
+              <Link to={`/journal/${article.id}`} className="group block">
                 <div className="overflow-hidden rounded-2xl">
                   <img
                     src={article.image}
@@ -90,7 +90,7 @@ const JournalSection = () => {
             to="/journal"
             className="font-satoshi font-medium text-sm tracking-wider bg-secondary text-foreground h-11 px-6 rounded-full inline-flex items-center hover:brightness-95 active:scale-[0.98] transition-all duration-200"
           >
-            Semua Artikel
+            All Articles
           </Link>
         </motion.div>
       </div>
