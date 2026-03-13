@@ -13,6 +13,7 @@ import { toast } from "sonner";
 
 const CabinDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const cabin = cabins.find((c) => c.id === id);
   const [checkIn, setCheckIn] = useState<Date>();
   const [checkOut, setCheckOut] = useState<Date>();
