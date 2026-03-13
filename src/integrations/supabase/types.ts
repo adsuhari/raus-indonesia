@@ -14,7 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookings: {
+        Row: {
+          cabin_id: string
+          cabin_name: string
+          check_in: string
+          check_out: string
+          created_at: string
+          email: string
+          first_name: string
+          guests: number
+          id: string
+          last_name: string
+          message: string | null
+          nights: number
+          phone: string
+          status: string
+          total_price: number
+        }
+        Insert: {
+          cabin_id: string
+          cabin_name: string
+          check_in: string
+          check_out: string
+          created_at?: string
+          email: string
+          first_name: string
+          guests?: number
+          id?: string
+          last_name: string
+          message?: string | null
+          nights: number
+          phone: string
+          status?: string
+          total_price: number
+        }
+        Update: {
+          cabin_id?: string
+          cabin_name?: string
+          check_in?: string
+          check_out?: string
+          created_at?: string
+          email?: string
+          first_name?: string
+          guests?: number
+          id?: string
+          last_name?: string
+          message?: string | null
+          nights?: number
+          phone?: string
+          status?: string
+          total_price?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
