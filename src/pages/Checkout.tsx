@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { cabins } from "@/data/cabins";
+import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 const steps = [
@@ -79,12 +80,53 @@ const Checkout = () => {
 
     setSubmitting(true);
 
-    // Simulate sending — in production this would call an edge function
-    await new Promise((resolve) => setTimeout(resolve, 1200));
+    try {
+      // Save booking to database
+      const { error: dbError } = await supabase.from("bookings").insert({
+        cabin_id: cabin!.id,
+        cabin_name: cabin!.name,
+        check_in: checkInStr,
+        check_out: checkOutStr,
+        guests: guestsParam,
+        nights,
+        total_price: total,
+        first_name: form.firstName.trim(),
+        last_name: form.lastName.trim(),
+        email: form.email.trim(),
+        phone: form.phone.trim(),
+        message: form.message.trim() || null,
+      });
 
-    setStep(3);
-    setSubmitting(false);
-    toast.success("Booking request sent! We'll get back to you soon.");
+      if (dbError) throw dbError;
+
+      // Send notification via edge function
+      const { error: fnError } = await supabase.functions.invoke("send-booking-notification", {
+        body: {
+          cabinId: cabin!.id,
+          cabinName: cabin!.name,
+          checkIn: checkInStr,
+          checkOut: checkOutStr,
+          guests: guestsParam,
+          nights,
+          totalPrice: total,
+          firstName: form.firstName.trim(),
+          lastName: form.lastName.trim(),
+          email: form.email.trim(),
+          phone: form.phone.trim(),
+          message: form.message.trim() || undefined,
+        },
+      });
+
+      if (fnError) console.error("Notification error:", fnError);
+
+      setStep(3);
+      toast.success("Booking request sent! We'll get back to you soon.");
+    } catch (err) {
+      console.error("Booking error:", err);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
