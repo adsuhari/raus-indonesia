@@ -43,7 +43,13 @@ const CabinDetail = () => {
       toast.error("Please select check-in and check-out dates.");
       return;
     }
-    toast.success(`Booking confirmed! ${cabin.name} for ${nights} night${nights > 1 ? 's' : ''}, ${guests} guest${guests > 1 ? 's' : ''}. Total: $${total}`);
+    const params = new URLSearchParams({
+      cabin: cabin.id,
+      checkIn: format(checkIn, "yyyy-MM-dd"),
+      checkOut: format(checkOut, "yyyy-MM-dd"),
+      guests: guests.toString(),
+    });
+    navigate(`/checkout?${params.toString()}`);
   };
 
   return (
