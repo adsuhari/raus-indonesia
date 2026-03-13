@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { MapPin, Star, Users, Check, ArrowLeft } from "lucide-react";
 import { format, differenceInDays } from "date-fns";
@@ -13,6 +13,7 @@ import { toast } from "sonner";
 
 const CabinDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const cabin = cabins.find((c) => c.id === id);
   const [checkIn, setCheckIn] = useState<Date>();
   const [checkOut, setCheckOut] = useState<Date>();
@@ -42,7 +43,13 @@ const CabinDetail = () => {
       toast.error("Please select check-in and check-out dates.");
       return;
     }
-    toast.success(`Booking confirmed! ${cabin.name} for ${nights} night${nights > 1 ? 's' : ''}, ${guests} guest${guests > 1 ? 's' : ''}. Total: $${total}`);
+    const params = new URLSearchParams({
+      cabin: cabin.id,
+      checkIn: format(checkIn, "yyyy-MM-dd"),
+      checkOut: format(checkOut, "yyyy-MM-dd"),
+      guests: guests.toString(),
+    });
+    navigate(`/checkout?${params.toString()}`);
   };
 
   return (
