@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index";
 import Cabins from "./pages/Cabins";
 import CabinDetail from "./pages/CabinDetail";
+import Checkout from "./pages/Checkout";
 import Locations from "./pages/Locations";
 import Experiences from "./pages/Experiences";
 import Journal from "./pages/Journal";
