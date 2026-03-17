@@ -116,7 +116,8 @@ const FloatingSearch = ({ sticky = false }: { sticky?: boolean }) => {
           Search
         </button>
       </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 };
 
