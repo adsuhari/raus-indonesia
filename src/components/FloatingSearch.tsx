@@ -32,7 +32,6 @@ const FloatingSearch = () => {
       className="sticky top-16 sm:top-20 z-40 flex justify-center px-4 sm:px-6 -mt-8 sm:-mt-10 mb-8"
     >
       <div className="bg-accent rounded-full px-4 sm:px-6 py-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-1 shadow-lg w-full max-w-3xl">
-      <div className="bg-accent rounded-full px-4 sm:px-6 py-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-1 shadow-lg w-full max-w-3xl">
         {/* Region */}
         <div className="flex flex-col px-3 flex-1 min-w-0 border-b sm:border-b-0 sm:border-r border-accent-foreground/15 pb-2 sm:pb-0">
           <span className="font-satoshi text-[10px] font-bold uppercase tracking-widest text-accent-foreground/60">Region</span>
