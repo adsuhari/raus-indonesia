@@ -25,103 +25,92 @@ const FloatingSearch = () => {
   };
 
   return (
-    <div className="sticky top-16 sm:top-20 z-40 bg-background/80 backdrop-blur-md border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-        <motion.div
-          initial={{ opacity: 0, y: -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-          className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3"
-        >
-          {/* Region */}
-          <div className="flex items-center gap-2 bg-secondary rounded-lg h-10 px-3 flex-1 min-w-0">
-            <MapPin size={15} className="text-muted-foreground flex-shrink-0" />
-            <select
-              value={region}
-              onChange={(e) => setRegion(e.target.value)}
-              className="font-satoshi text-sm text-foreground bg-transparent w-full outline-none cursor-pointer"
-            >
-              {regions.map((r) => (
-                <option key={r} value={r}>{r}</option>
-              ))}
-            </select>
-          </div>
-
-          {/* Check-in */}
-          <Popover>
-            <PopoverTrigger asChild>
-              <button className={cn(
-                "flex items-center gap-2 bg-secondary rounded-lg h-10 px-3 flex-1 min-w-0 text-left",
-                !checkIn && "text-muted-foreground"
-              )}>
-                <Calendar size={15} className="text-muted-foreground flex-shrink-0" />
-                <span className="font-satoshi text-sm truncate">
-                  {checkIn ? format(checkIn, "MMM d, yyyy") : "Check-in"}
-                </span>
-              </button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <CalendarUI
-                mode="single"
-                selected={checkIn}
-                onSelect={setCheckIn}
-                disabled={(date) => date < new Date()}
-                initialFocus
-                className={cn("p-3 pointer-events-auto")}
-              />
-            </PopoverContent>
-          </Popover>
-
-          {/* Check-out */}
-          <Popover>
-            <PopoverTrigger asChild>
-              <button className={cn(
-                "flex items-center gap-2 bg-secondary rounded-lg h-10 px-3 flex-1 min-w-0 text-left",
-                !checkOut && "text-muted-foreground"
-              )}>
-                <Calendar size={15} className="text-muted-foreground flex-shrink-0" />
-                <span className="font-satoshi text-sm truncate">
-                  {checkOut ? format(checkOut, "MMM d, yyyy") : "Check-out"}
-                </span>
-              </button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <CalendarUI
-                mode="single"
-                selected={checkOut}
-                onSelect={setCheckOut}
-                disabled={(date) => date < (checkIn || new Date())}
-                initialFocus
-                className={cn("p-3 pointer-events-auto")}
-              />
-            </PopoverContent>
-          </Popover>
-
-          {/* Guests */}
-          <div className="flex items-center gap-2 bg-secondary rounded-lg h-10 px-3 flex-1 min-w-0">
-            <Users size={15} className="text-muted-foreground flex-shrink-0" />
-            <select
-              value={guests}
-              onChange={(e) => setGuests(Number(e.target.value))}
-              className="font-satoshi text-sm text-foreground bg-transparent w-full outline-none cursor-pointer"
-            >
-              {[1, 2, 3, 4, 5].map((n) => (
-                <option key={n} value={n}>{n} {n === 1 ? "Guest" : "Guests"}</option>
-              ))}
-            </select>
-          </div>
-
-          {/* Search button */}
-          <button
-            onClick={handleSearch}
-            className="flex items-center justify-center gap-2 bg-primary text-primary-foreground h-10 px-5 rounded-full font-satoshi font-medium text-sm tracking-wider hover:brightness-95 active:scale-[0.98] transition-all duration-200 flex-shrink-0"
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1], delay: 0.3 }}
+      className="relative z-40 flex justify-center px-4 sm:px-6 -mt-8 sm:-mt-10 mb-8"
+    >
+      <div className="bg-accent rounded-full px-4 sm:px-6 py-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-1 shadow-lg w-full max-w-3xl">
+        {/* Region */}
+        <div className="flex flex-col px-3 flex-1 min-w-0 border-b sm:border-b-0 sm:border-r border-accent-foreground/15 pb-2 sm:pb-0">
+          <span className="font-satoshi text-[10px] font-bold uppercase tracking-widest text-accent-foreground/60">Region</span>
+          <select
+            value={region}
+            onChange={(e) => setRegion(e.target.value)}
+            className="font-satoshi text-sm font-medium text-accent-foreground bg-transparent w-full outline-none cursor-pointer -ml-1 pl-1"
           >
-            <Search size={15} />
-            Search
-          </button>
-        </motion.div>
+            {regions.map((r) => (
+              <option key={r} value={r}>{r}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Dates */}
+        <div className="flex flex-col px-3 flex-1 min-w-0 border-b sm:border-b-0 sm:border-r border-accent-foreground/15 pb-2 sm:pb-0">
+          <span className="font-satoshi text-[10px] font-bold uppercase tracking-widest text-accent-foreground/60">Check-in & Check-out</span>
+          <div className="flex items-center gap-1">
+            <Popover>
+              <PopoverTrigger asChild>
+                <button className="font-satoshi text-sm font-medium text-accent-foreground bg-transparent outline-none cursor-pointer text-left hover:underline decoration-accent-foreground/30 underline-offset-2">
+                  {checkIn ? format(checkIn, "d MMM yyyy") : "Select"}
+                </button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <CalendarUI
+                  mode="single"
+                  selected={checkIn}
+                  onSelect={setCheckIn}
+                  disabled={(date) => date < new Date()}
+                  initialFocus
+                  className={cn("p-3 pointer-events-auto")}
+                />
+              </PopoverContent>
+            </Popover>
+            <span className="text-accent-foreground/50 text-sm">→</span>
+            <Popover>
+              <PopoverTrigger asChild>
+                <button className="font-satoshi text-sm font-medium text-accent-foreground bg-transparent outline-none cursor-pointer text-left hover:underline decoration-accent-foreground/30 underline-offset-2">
+                  {checkOut ? format(checkOut, "d MMM yyyy") : "Select"}
+                </button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <CalendarUI
+                  mode="single"
+                  selected={checkOut}
+                  onSelect={setCheckOut}
+                  disabled={(date) => date < (checkIn || new Date())}
+                  initialFocus
+                  className={cn("p-3 pointer-events-auto")}
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
+        </div>
+
+        {/* Guests */}
+        <div className="flex flex-col px-3 flex-1 min-w-0 pb-2 sm:pb-0">
+          <span className="font-satoshi text-[10px] font-bold uppercase tracking-widest text-accent-foreground/60">Guests</span>
+          <select
+            value={guests}
+            onChange={(e) => setGuests(Number(e.target.value))}
+            className="font-satoshi text-sm font-medium text-accent-foreground bg-transparent w-full outline-none cursor-pointer -ml-1 pl-1"
+          >
+            {[1, 2, 3, 4, 5].map((n) => (
+              <option key={n} value={n}>{n} {n === 1 ? "Guest" : "Guests"}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Search button */}
+        <button
+          onClick={handleSearch}
+          className="flex items-center justify-center gap-2 bg-primary text-primary-foreground h-10 px-6 rounded-full font-satoshi font-medium text-sm tracking-wider hover:brightness-95 active:scale-[0.98] transition-all duration-200 flex-shrink-0"
+        >
+          Search
+        </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
