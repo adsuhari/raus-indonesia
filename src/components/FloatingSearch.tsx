@@ -8,7 +8,7 @@ import { Calendar as CalendarUI } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import { regions } from "@/data/cabins";
 
-const FloatingSearch = ({ sticky = false }: { sticky?: boolean }) => {
+const FloatingSearch = () => {
   const navigate = useNavigate();
   const [region, setRegion] = useState("All Locations");
   const [checkIn, setCheckIn] = useState<Date>();
@@ -25,18 +25,13 @@ const FloatingSearch = ({ sticky = false }: { sticky?: boolean }) => {
   };
 
   return (
-    <div className={cn(
-      "z-40 flex justify-center px-4 sm:px-6 transition-all duration-300",
-      sticky
-        ? "fixed top-0 left-0 right-0 py-3 bg-background/80 backdrop-blur-md shadow-md"
-        : "relative -mt-8 sm:-mt-10 mb-8"
-    )}>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1], delay: 0.3 }}
-        className="w-full max-w-3xl"
-      >
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1], delay: 0.3 }}
+      className="sticky top-16 sm:top-20 z-40 flex justify-center px-4 sm:px-6 -mt-8 sm:-mt-10 mb-8"
+    >
+      <div className="bg-accent rounded-full px-4 sm:px-6 py-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-1 shadow-lg w-full max-w-3xl">
       <div className="bg-accent rounded-full px-4 sm:px-6 py-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-1 shadow-lg w-full max-w-3xl">
         {/* Region */}
         <div className="flex flex-col px-3 flex-1 min-w-0 border-b sm:border-b-0 sm:border-r border-accent-foreground/15 pb-2 sm:pb-0">
