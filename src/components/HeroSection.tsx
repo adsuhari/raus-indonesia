@@ -1,15 +1,16 @@
 import { motion } from "framer-motion";
 import heroCabin from "@/assets/hero-cabin-1.jpg";
+import FloatingSearch from "@/components/FloatingSearch";
 
 const HeroSection = () => {
   return (
-    <section className="min-h-svh flex flex-col justify-center pt-20 pb-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    <section className="relative min-h-svh flex flex-col pt-20 pb-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col">
         <motion.h1
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-          className="font-satoshi font-bold text-primary leading-[1.1]"
+          className="font-satoshi font-bold text-primary leading-[1.1] mt-8 sm:mt-16"
           style={{ fontSize: "clamp(2.5rem, 5vw + 1rem, 4rem)" }}
         >
           Find your place
@@ -19,11 +20,12 @@ const HeroSection = () => {
           Indonesia's nature.
         </motion.h1>
 
+        <div className="flex-1" />
+
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1], delay: 0.15 }}
-          className="mt-12 sm:mt-16"
         >
           <div className="w-full max-w-3xl mx-auto">
             <img
@@ -33,6 +35,11 @@ const HeroSection = () => {
             />
           </div>
         </motion.div>
+      </div>
+
+      {/* Search bar overlapping bottom of hero */}
+      <div className="relative z-40 flex justify-center px-4 sm:px-6 -mb-7">
+        <FloatingSearch />
       </div>
     </section>
   );
